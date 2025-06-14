@@ -1,0 +1,15 @@
+body {
+    background-color: #f6f7fb;
+}
+
+.navbar-sticky.is-stuck .navbar:not(.offcanvas-body),
+.navbar-sticky.is-stuck.navbar,
+.navbar-sticky.navbar-stuck .navbar:not(.offcanvas-body),
+.navbar-sticky.navbar-stuck.navbar {
+    background-color: var(--cz-body-bg);
+    box-shadow: 0 .5rem 2rem -.25rem rgba(103, 111, 123, .1);
+}
+
+.navbar {
+    --cz-navbar-brand-font-weight: 600;
+}

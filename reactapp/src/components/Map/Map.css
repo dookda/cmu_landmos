@@ -1,0 +1,7 @@
+.panel {
+    height: 500px;
+    /* overflow-y: scroll; */
+    border-radius: 12px;
+    /* padding: 5px; */
+    background-color: #fff;
+}
