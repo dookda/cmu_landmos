@@ -21,7 +21,11 @@ function App() {
             <Map />
           </div>
           <div className="col-sm-6 mt-3">
-            <Layers />
+            <div className="layer-panel">
+              <Layers />
+              <Layers />
+              <Layers />
+            </div>
           </div>
         </div>
 

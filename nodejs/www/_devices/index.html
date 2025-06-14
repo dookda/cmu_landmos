@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>RTK-LandMos</title>
+
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.13.1/datatables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="./../dist/vendors/feather/feather.css">
+  <link rel="stylesheet" href="./../dist/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="./../dist/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="./../dist/css/vertical-layout-light/style.css">
+  <!-- <link rel="shortcut icon" href="./../dist/images/favicon.png" /> -->
+
+  <!-- app edit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;400&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./../markers/css/leaflet.extra-markers.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="sidebar-icon">
+  <div class="container-scroller">
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center bgclass">
+        <a class="navbar-brand brand-logo mr-5" href="./../index.html"><img src="../_img/logo.png" class="mr-2"
+            alt="logo"></a>
+        <a class="navbar-brand brand-logo-mini" href="./../index.html"><img src="../_img/logo-mini.png" alt="logo"></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end bgclass">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+
+        <ul class="navbar-nav mr-lg-2">
+          <div class="col-12">
+            <h4 class="font-weight-bold" style="color: blue; padding-top: 7px; font-size:1.6vw;">
+              ระบบเฝ้าติดตามการเคลื่อนตัวของมวลดินบริเวณเหมืองเปิดถ่านหินลิกไนต์ กฟผ.แม่เมาะ
+            </h4>
+          </div>
+        </ul>
+
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown" id="profile">
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_dashboard/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">สถานะอุปกรณ์</span>
+            </a>
+          </li>
+
+          <li class="nav-item ">
+            <a class="nav-link" href="./../_user/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">จัดการสิทธิ์</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_station/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">จัดการข้อมูล</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_water/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">แรงดันน้ำและน้ำฝน</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_notify/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">การแจ้งเตือน</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_report/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">รายงาน</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row mb-4">
+            <div class="col-12 col-xl-8 mb-xl-0">
+              <h4 class="font-weight-bold">สถานะอุปกรณ์ สถานี RTK-LANDMOS</h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 ">
+              <div class="row">
+                <div class="col-md-8 grid-margin stretch-card mb-4">
+                  <div class="card tale-bg" id="map">
+                  </div>
+                </div>
+
+                <div class="col-md-4  mb-4">
+                  <!-- <p class="card-title">เลือกช่วงเวลาข้อมูล ของสถานี <span id="st_code3"></span> </p><br> -->
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="">
+                        <label class="form-check-label">ข้อมูลย้อนหลัง</label> <br>
+                        <div class="form-group mb-2">
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn1"
+                            onclick="selectDate(365);toggleBtn(1);">1ปี</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn2"
+                            onclick="selectDate(18);toggleBtn(2);">6เดือน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn3"
+                            onclick="selectDate(90);toggleBtn(3);">3เดือน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn4"
+                            onclick="selectDate(30);toggleBtn(4);">1เดือน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn5"
+                            onclick="selectDate(14);toggleBtn(5);">14วัน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn6"
+                            onclick="selectDate(7);toggleBtn(6);">7วัน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn7"
+                            onclick="selectDate(3);toggleBtn(7);">3วัน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn8"
+                            onclick="selectDate(1);toggleBtn(8);">1วัน</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn9"
+                            onclick="selectDate(0.720);toggleBtn(9);">12ชั่วโมง</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn10"
+                            onclick="selectDate(0.360);toggleBtn(10);">6ชั่วโมง</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn11"
+                            onclick="selectDate(0.090);toggleBtn(11);">3ชั่วโมง</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn12"
+                            onclick="selectDate(0.060);toggleBtn(12);">1ชั่วโมง</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn13"
+                            onclick="selectDate(0.030);toggleBtn(13);">30นาที</button>
+                          <button type="button" class="btn btn-outline-info btn-fw mb-1" id="btn14"
+                            onclick="selectDate(0.015);toggleBtn(14);">15นาที</button>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-check-label">กำหนดช่วงเวลา</label><br>
+                        <input type="text" class="form-control" name="datetimes" id="datetimes" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nav bar -->
+          <nav>
+            <div class="nav nav-tabs mt-3 mb-3" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-solarcell-tab" data-toggle="tab" data-target="#nav-solarcell"
+                type="button" role="tab" aria-controls="nav-solarcell" aria-selected="true"
+                value="solarcell">สถานะการทำงานของแผงโซล่าเซลล์</button>
+              <button class="nav-link" id="nav-battery-tab" data-toggle="tab" data-target="#nav-battery" type="button"
+                role="tab" aria-controls="nav-battery" aria-selected="false"
+                value="battery">สถานะการทำงานของแบตเตอรี่</button>
+              <button class="nav-link" id="nav-temp-tab" data-toggle="tab" data-target="#nav-temp" type="button"
+                role="tab" aria-controls="nav-temp" aria-selected="false" value="temp">อุณหภูมิ</button>
+              <button class="nav-link" id="nav-humid-tab" data-toggle="tab" data-target="#nav-humid" type="button"
+                role="tab" aria-controls="nav-humid" aria-selected="false" value="humid">ความชื้น</button>
+            </div>
+          </nav>
+
+          <div id="solarcell">
+            <div class="card mt-1" id="solarcell_div">
+              <h4>สถานะการทำงานของแผงโซล่าเซลล์</h4>
+              <div class="row ">
+                <div class="col-md-6 d-flex justify-content-center">
+                  แรงดันแผงโซล่าเซลล์
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  กระแสแผงโซล่าเซลล์
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="battery">
+            <div class="card mt-1" id="battery_div">
+              <h4>สถานะการทำงานของแบตเตอรี่</h4>
+              <div class="row ">
+                <div class="col-md-6 d-flex justify-content-center">
+                  แรงดันแบตเตอรี่
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  กระแสแบตเตอรี่
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="temp">
+            <div class="card mt-1" id="temp_div">
+              <h4>สถานะอุณหภูมิ</h4>
+              <div class="row ">
+                <div class="col-md-12 d-flex justify-content-center">
+                  สถานะอุณหภูมิ
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="humid">
+            <div class="card mt-1" id="humid_div">
+              <h4>สถานะความชื้น</h4>
+              <div class="row ">
+                <div class="col-md-12 d-flex justify-content-center">
+                  สถานะความชื้น
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.
+              ระบบเฝ้าติดตามการเคลื่อนตัวของมวลดินบริเวณเหมืองเปิดถ่านหินลิกไนต์ กฟผ.แม่เมาะ</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">version <span
+                id="version"></span></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+  <!-- plugins:js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- <script src="./../skydash/vendors/js/vendor.bundle.base.js"></script> -->
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script> -->
+
+  <script src="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.13.1/datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+
+
+  <!-- End custom js for this page-->
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+  <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script> -->
+  <script src="https://momentjs.com/downloads/moment-timezone-with-data-10-year-range.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://www.lactame.com/lib/ml/6.0.0/ml.min.js"></script>
+  <script src="./../markers/js/leaflet.extra-markers.min.js"></script>
+
+  <script src="./../dist/js/off-canvas.js"></script>
+  <script src="./../dist/js/hoverable-collapse.js"></script>
+  <script src="./../dist/js/template.js"></script>
+  <script src="./../dist/js/settings.js"></script>
+  <script src="./../dist/js/modal-demo.js"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>

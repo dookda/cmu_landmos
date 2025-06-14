@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <!-- CSS only -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class=" shadow p-3 bg-body rounded mt-3">
+            <div class=" card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="stat_code">เลือก Station</label>
+                        <select class="form-select" aria-label="station" id="stat_code">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="start_date">เลือกวันเริ่มต้น</label>
+                        <input class="form-control" type="date" name="" id="start_date">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="end_date">เลือกวันสิ้นสุด</label>
+                        <input class="form-control" type="date" name="" id="end_date">
+                    </div>
+                </div>
+                <p></p>
+                <div class="btn btn-light" onclick="getData()">ตกลง</div>
+            </div>
+        </div>
+
+
+        <div class="row  ">
+            <div class="col-md-6 mt-1">
+                <div class=" shadow p-3 bg-body rounded mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่าการเคลื่อนตัว (de และ dn)
+                        <button class="btn btn-light" onclick="resetZoom()">reset zoom</button>
+                    </div>
+                    <canvas id="en" height="290px"></canvas>
+
+                </div>
+            </div>
+            <div class="col-md-6 mt-1">
+                <div class="shadow p-3 bg-body rounded mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่า H Difference (dh)
+                        <button class="btn btn-light" onclick="resetZoomH()">reset zoom</button>
+                    </div>
+                    <canvas id="h" height="290px"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row  ">
+            <div class="col-md-6 mt-1">
+                <div class=" shadow p-3 bg-body rounded mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่า E Difference (de)
+                        <button class="btn btn-light" onclick="resetZoomE()">reset zoom</button>
+                    </div>
+                    <canvas id="e" height="290px"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 mt-1">
+                <div class=" shadow p-3 bg-body rounded mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่า N Difference (dn)
+                        <button class="btn btn-light" onclick="resetZoomN()">reset zoom</button>
+                    </div>
+                    <canvas id="n" height="290px"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class=" shadow p-3 bg-body rounded mt-3 mb-5">
+            <div class="card-body">
+                <table id="tab" class="display" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Station</th>
+                            <th>ค่า &Delta;de</th>
+                            <th>ค่า &Delta;dn</th>
+                            <th>ค่า &Delta;dh</th>
+                            <th>status</th>
+                            <th>วันที่ เวลา</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="checkModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="w3-animate-top"></div>
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-body">
+                    กรุณาเลือก Station ที่ <b><u>ต่างกัน</u></b>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" onclick="closeModal()">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
+
+    <!-- <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
+
+    <script src="./app.js"></script>
+</body>
+
+</html>

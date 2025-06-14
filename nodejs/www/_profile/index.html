@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>RTK-LandMos</title>
+
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="./../dist/vendors/feather/feather.css">
+  <link rel="stylesheet" href="./../dist/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="./../dist/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="./../dist/css/vertical-layout-light/style.css">
+  <!-- <link rel="shortcut icon" href="./../dist/images/favicon.png" /> -->
+
+  <!-- app edit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;400&display=swap">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./../markers/css/leaflet.extra-markers.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="sidebar-icon">
+  <div class="container-scroller">
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center bgclass">
+        <a class="navbar-brand brand-logo mr-5" href="./../index.html"><img src="../_img/logo.png" class="mr-2"
+            alt="logo"></a>
+        <a class="navbar-brand brand-logo-mini" href="./../index.html"><img src="../_img/logo-mini.png" alt="logo"></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end bgclass">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+
+        <ul class="navbar-nav mr-lg-2">
+          <div class="col-12">
+            <h4 class="font-weight-bold" style="color: blue; padding-top: 7px; font-size:1.6vw;">
+              ระบบเฝ้าติดตามการเคลื่อนตัวของมวลดินบริเวณเหมืองเปิดถ่านหินลิกไนต์ กฟผ.แม่เมาะ
+            </h4>
+          </div>
+        </ul>
+
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown" id="profile">
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_dashboard/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_devices/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">สถานะอุปกรณ์</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_user/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">จัดการสิทธิ์</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_station/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">จัดการข้อมูล</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_water/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">แรงดันน้ำและน้ำฝน</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_notify/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">การแจ้งเตือน</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="./../_report/index.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">รายงาน</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="border-bottom text-center pb-4">
+                        <p class="w-75 mx-auto mb-3" id="auth"> </p>
+                      </div>
+
+
+
+                      <div class="py-4" id="userInfo">
+                        <div class="col-md-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+                              <h4 class="card-title">ข้อมูลบัญชีพื้นฐาน</h4>
+                              <p class="card-description">
+                                การตั้งค่านี้เป็นข้อมูลพื้นฐานสำหรับบัญชีของคุณ
+                              </p>
+                              <form class="forms-sample">
+                                <div class="form-group">
+                                  <label for="username">ชื่อบัญชี</label>
+                                  <input type="text" class="form-control" id="username" disabled>
+                                </div>
+                                <div class="form-group">
+                                  <label for="division">แผนก</label>
+                                  <input type="text" class="form-control" id="division" placeholder="division">
+                                </div>
+                                <div class="form-group">
+                                  <label for="fullname">ชื่อผู้ใช้งาน</label>
+                                  <input type="text" class="form-control" id="usernameth" placeholder="ชื่อผู้ใช้งาน">
+                                </div>
+
+                                <button type="button" class="btn btn-success mr-2"
+                                  onclick="updateProfile()">บันทึก</button>
+                                <button type="button" class="btn btn-primary" id="lineLinkBtn"
+                                  onclick="lineRegister()">ผูกการแจ้งเตือนกับ Line Notify</button>
+
+                                <button type="button" class="btn btn-danger" id="lineLinkBtn"
+                                  onclick="lineRevoke()">ยกเลิก Line Notify</button>
+
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.
+              ระบบเฝ้าติดตามการเคลื่อนตัวของมวลดินบริเวณเหมืองเปิดถ่านหินลิกไนต์ กฟผ.แม่เมาะ</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">version <span
+                id="version"></span></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+  <!-- plugins:js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- <script src="./../skydash/vendors/js/vendor.bundle.base.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+  <!-- End custom js for this page-->
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="./../dist/js/off-canvas.js"></script>
+  <script src="./../dist/js/hoverable-collapse.js"></script>
+  <script src="./../dist/js/template.js"></script>
+  <script src="./../dist/js/settings.js"></script>
+  <script src="./../dist/js/modal-demo.js"></script>
+  <!-- <script src="./../dist/app.js"></script> -->
+  <script src="./app.js"></script>
+</body>
+
+</html>

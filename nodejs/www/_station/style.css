@@ -1,0 +1,94 @@
+body {
+    box-sizing: 0px;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.footer {
+    box-sizing: 0px;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.sidebar {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-weight: 800;
+}
+
+#map {
+    height: 300px;
+    z-index: 0;
+}
+
+.bgclass {
+    background-color: yellow !important;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 60vh;
+    width: 80vw;
+}
+
+.chart {
+    height: 300px;
+}
+
+.chart-m {
+    height: 800px;
+    padding-top: 0.3rem !important;
+    padding-right: 0.3rem !important;
+    padding-bottom: 0.1rem !important;
+}
+
+.card .card-title {
+    margin-bottom: 0px !important;
+}
+
+img.huechange {
+    filter: hue-rotate(120deg);
+}
+
+.list-wrapper {
+    height: 100%;
+    max-height: 350px !important;
+    overflow: scroll;
+}
+
+.card-gauge {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    padding: 1px !important;
+}
+
+.list-wrapper .detail {
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 1.25rem;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    text-align: center;
+    color: #000 !important;
+    margin-left: auto !important;
+}
+
+.div-head {
+    justify-content: space-between;
+}
+
+/* #order-chart {
+    height: 300px;
+} */
+
+.dataTables_wrapper .dataTable .btn,
+.dataTables_wrapper .dataTable .fc button,
+.fc .dataTables_wrapper .dataTable button,
+.dataTables_wrapper .dataTable .ajax-upload-dragdrop .ajax-file-upload,
+.ajax-upload-dragdrop .dataTables_wrapper .dataTable .ajax-file-upload,
+.dataTables_wrapper .dataTable .swal2-modal .swal2-buttonswrapper .swal2-styled,
+.swal2-modal .swal2-buttonswrapper .dataTables_wrapper .dataTable .swal2-styled,
+.dataTables_wrapper .dataTable .wizard>.actions a,
+.wizard>.actions .dataTables_wrapper .dataTable a {
+    padding: 0.5rem 0.5rem !important;
+}

@@ -1,7 +1,26 @@
-.panel {
+.map-panel {
     height: 500px;
     /* overflow-y: scroll; */
-    border-radius: 12px;
+    border-radius: 15px;
     /* padding: 5px; */
     background-color: #fff;
+}
+
+.custom-marker {
+    width: 30px;
+    height: 30px;
+    background-color: #2196f3;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.custom-marker.marker-active {
+    background-color: #f44336;
+    /* toggled red */
 }

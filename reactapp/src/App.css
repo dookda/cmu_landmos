@@ -1,5 +1,5 @@
 body {
-    background-color: #f6f7fb;
+    background-color: #f0f1f5;
 }
 
 .navbar-sticky.is-stuck .navbar:not(.offcanvas-body),
@@ -12,4 +12,12 @@ body {
 
 .navbar {
     --cz-navbar-brand-font-weight: 600;
+}
+
+.layer-panel {
+    height: 500px;
+    overflow-y: scroll;
+    /* border-radius: 15px; */
+    /* padding: 15px; */
+    /* background-color: #fff; */
 }

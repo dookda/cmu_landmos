@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react'
-import * as echarts from 'echarts';
+// import * as echarts from 'echarts';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import './Chart.css'
 
 export const Chart = () => {
@@ -13,38 +15,44 @@ export const Chart = () => {
         ['2023-10-07', 1320]
     ].map(item => [new Date(item[0]).getTime(), item[1]]);
 
-    const chartRef = useRef(null);
-    const chartInstanceRef = useRef(null);
+    const options = {
+        title: {
+            text: 'Time Series Line Chart',
+        },
+        xAxis: {
+            type: 'datetime',
+        },
+        yAxis: {
+            title: {
+                text: 'Value',
+            },
+        },
+        tooltip: {
+            xDateFormat: '%Y-%m-%d',
+            shared: true,
+        },
+        // add height to the chart
+        chart: {
+            height: 380,
+        },
+        series: [
+            {
+                name: 'Sample Data',
+                data: [
+                    [Date.UTC(2023, 0, 1), 29],
+                    [Date.UTC(2023, 0, 2), 71],
+                    [Date.UTC(2023, 0, 3), 106],
+                    [Date.UTC(2023, 0, 4), 129],
+                    [Date.UTC(2023, 0, 5), 144],
+                ],
+                type: 'line',
+            },
+        ],
+    };
 
-    useEffect(() => {
-        const chartDom = chartRef.current;
-        const myChart = echarts.init(chartDom, null, {
-            resizeObserver: true
-        });
-        chartInstanceRef.current = myChart;
-
-        const option = {
-            tooltip: { trigger: 'axis' },
-            xAxis: { type: 'time' },
-            yAxis: { type: 'value' },
-            dataZoom: [{ type: 'slider' }, { type: 'inside' }],
-            series: [
-                {
-                    type: 'line',
-                    data,
-                    showSymbol: false,
-                    smooth: true
-                }
-            ]
-        };
-
-        myChart.setOption(option);
-
-        return () => {
-            myChart.dispose();
-        };
-    }, [data]);
     return (
-        <div className="panel" ref={chartRef} />
+        <div className="chart-panel">
+            <HighchartsReact highcharts={Highcharts} options={options} />
+        </div>
     )
 }
