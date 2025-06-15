@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # Node.js backend service
+  nodejs:
+    # UPDATED: Builds the image using the Dockerfile in the ./nodejs directory.
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile
+    container_name: landmos_nodejs
+    working_dir: /app/nodejs
+    restart: always
+    depends_on:
+      - postgis
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_HOST=postgis
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=landmos1234
+      - POSTGRES_DB=landmos_db
+    volumes:
+      # Mounts your local code into the container for live updates.
+      - ./nodejs:/app/nodejs
+      # This anonymous volume prevents the mounted code from overwriting
+      # the node_modules directory that was created inside the image.
+      - /app/nodejs/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+  # The 'command' is now handled by the CMD instruction in the Dockerfile.
+
+  # React frontend service (for development)
+  reactapp:
+    # UPDATED: Builds the image using the Dockerfile in the ./reactapp directory.
+    build:
+      context: ./reactapp
+      dockerfile: Dockerfile
+    container_name: landmos_reactapp
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mounts your local code into the container for live updates.
+      - ./reactapp:/app
+      # This anonymous volume protects the node_modules directory.
+      - /app/node_modules
+    networks:
+      - app-network
+    working_dir: /app
+    depends_on:
+      - nodejs
+  # The 'command' is now handled by the CMD instruction in the Dockerfile.
+
+  # PostGIS database service
+  postgis:
+    image: postgis/postgis:latest
+    container_name: landmos_postgis
+    restart: always
+    environment:
+      - TZ=Asia/Bangkok
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=landmos1234
+      - POSTGRES_DB=landmos_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres/:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+# Defines the named volume used by the postgis service for data persistence.
+volumes:
+  postgres-data:
